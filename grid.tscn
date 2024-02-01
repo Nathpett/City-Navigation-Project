@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cc3r7c26vu5dj"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_xu3nn"]
+outlines = Array[PackedVector2Array]([PackedVector2Array(118, 106, 136, 300, 405, 396, 444, 135)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="Node2D" type="NavigationRegion2D"]
+navigation_polygon = SubResource("NavigationPolygon_xu3nn")
