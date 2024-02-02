@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://3nh4d1xc5avs"]
+
+[ext_resource type="Script" path="res://npc.gd" id="1_mukjw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rylqn"]
+radius = 3.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hxpec"]
+size = Vector2(10, 10)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+position = Vector2(13, 29)
+collision_layer = 0
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_mukjw")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rylqn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_hxpec")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

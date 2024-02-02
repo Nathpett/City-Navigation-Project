@@ -13,7 +13,6 @@ config_version=5
 config/name="City Navigation Project"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-run/max_fps=10
 config/icon="res://icon.svg"
 
 [rendering]
