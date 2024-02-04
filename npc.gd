@@ -15,10 +15,7 @@ func _ready():
 	
 	city = get_parent()
 	
-	while(true):
-		seek(city.random_building().global_position)
-		await navigation_agent.navigation_finished
-		await get_tree().create_timer(3)
+	$StateMachine.change_state("wander")
 
 
 func seek(new_goal_position: Vector2):

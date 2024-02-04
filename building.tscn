@@ -227,5 +227,22 @@ scale = Vector2(0.0664065, 0.0664065)
 texture = ExtResource("2_ha4c5")
 metadata/_edit_group_ = true
 
-[node name="Node2D" type="Node2D" parent="Enterance"]
-scale = Vector2(15.0588, 15.0588)
+[node name="Goals" type="Node2D" parent="."]
+
+[node name="Goal2" type="Sprite2D" parent="Goals"]
+position = Vector2(-88, 120)
+scale = Vector2(0.0664065, 0.0664065)
+texture = ExtResource("2_ha4c5")
+metadata/_edit_group_ = true
+
+[node name="Goal3" type="Sprite2D" parent="Goals"]
+position = Vector2(-7.99999, 152)
+scale = Vector2(0.0664065, 0.0664065)
+texture = ExtResource("2_ha4c5")
+metadata/_edit_group_ = true
+
+[node name="Goal4" type="Sprite2D" parent="Goals"]
+position = Vector2(56, 104)
+scale = Vector2(0.0664065, 0.0664065)
+texture = ExtResource("2_ha4c5")
+metadata/_edit_group_ = true
