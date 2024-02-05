@@ -1,8 +1,10 @@
 class_name State
 extends Node
 
+signal exit_state
+
 var state_owner
-var change_state 
+var push_state 
 
 
 func enter() -> void:
@@ -10,9 +12,13 @@ func enter() -> void:
 
 
 func exit() -> void:
+	emit_signal("exit_state")
+	queue_free()
+
+
+func pause() -> void:
 	pass
 
 
-func setup(new_change_state, new_state_owner) -> void:
-	self.change_state = new_change_state
-	self.state_owner = new_state_owner
+func unpause() -> void:
+	pass

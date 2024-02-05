@@ -1,8 +1,10 @@
 extends CharacterBody2D
 
+
 var movement_speed: float = 100.0
 var movement_target_position: Vector2
 var city: City
+var in_sight_range: Array
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
@@ -14,22 +16,22 @@ func _ready():
 	navigation_agent.target_desired_distance = 4.0
 	
 	city = get_parent()
+	in_sight_range = []
 	
-	$StateMachine.change_state("wander")
+	$StateMachine.push_state("wander")
 
 
 func seek(new_goal_position: Vector2):
 	movement_target_position = new_goal_position
-	
-	# Make sure to not await during _ready.
 	call_deferred("actor_setup")
 
 
-func actor_setup():
-	# Wait for the first physics frame so the NavigationServer can sync.
-	await get_tree().physics_frame
+func look():
+	pass
 
-	# Now that the navigation map is no longer empty, set the movement target.
+
+func actor_setup():
+	await get_tree().physics_frame
 	set_movement_target(movement_target_position)
 
 
@@ -37,7 +39,7 @@ func set_movement_target(movement_target: Vector2):
 	navigation_agent.target_position = movement_target
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if navigation_agent.is_navigation_finished() and !navigation_agent.is_target_reached():
 		actor_setup()
 
@@ -62,3 +64,11 @@ func _get_closest_cardinal_vecotr(vec2: Vector2):
 			closest_direction = direction
 
 	return closest_direction
+
+
+func _on_sight_area_area_entered(area):
+	in_sight_range.append(area.get_parent())
+
+
+func _on_sight_area_area_exited(area):
+	in_sight_range.erase(area.get_parent())
