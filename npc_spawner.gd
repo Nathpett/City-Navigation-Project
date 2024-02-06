@@ -5,6 +5,7 @@ var npc_packed_scene: PackedScene
 func _ready() -> void:
 	npc_packed_scene = load("res://npc.tscn")
 	
+	call_deferred("_spawn")
 	while(true):
 		$Timer.start()
 		await $Timer.timeout

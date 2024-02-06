@@ -26,8 +26,17 @@ func seek(new_goal_position: Vector2):
 	call_deferred("actor_setup")
 
 
-func look():
-	pass
+func look(): # ONLY CALL IN PHYSICS PROCESS
+	var space_state = get_world_2d().direct_space_state
+	var true_seen = []
+	for thing in in_sight_range:
+		var query = PhysicsRayQueryParameters2D.create(Vector2(0, 0), Vector2(50, 100), 1)
+		if !space_state.intersect_ray(query):
+			true_seen.append(thing)
+	
+	print(true_seen)
+	# TODO operate on actually seen items
+
 
 
 func actor_setup():
@@ -67,7 +76,10 @@ func _get_closest_cardinal_vecotr(vec2: Vector2):
 
 
 func _on_sight_area_area_entered(area):
-	in_sight_range.append(area.get_parent())
+	var thing = area.get_parent()
+	if thing == self:
+		return
+	in_sight_range.append(thing)
 
 
 func _on_sight_area_area_exited(area):
