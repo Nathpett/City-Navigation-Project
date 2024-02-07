@@ -5,12 +5,13 @@ var state
 var state_stack: Array
 
 
-func push_state(state_name) -> void:
+func push_state(state_name, parameters = null) -> void:
 	if state != null:
 		state.pause()
 		state_stack.append(state)
 	state = Node.new()
 	state.set_script(load("res://state/%s.gd" % [state_name]))
+	state.parameters = parameters
 	state.state_owner = get_parent()
 	state.push_state = Callable(self, "push_state")
 	state.connect("exit_state", Callable(self, "_state_exited"))

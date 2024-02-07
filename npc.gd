@@ -21,12 +21,12 @@ func _ready():
 	$StateMachine.push_state("wander")
 
 
-func seek(new_goal_position: Vector2):
+func set_target(new_goal_position: Vector2):
 	movement_target_position = new_goal_position
 	call_deferred("actor_setup")
 
 
-func look(): # ONLY CALL IN PHYSICS PROCESS
+func look() -> Array: # ONLY CALL IN PHYSICS PROCESS
 	var space_state = get_world_2d().direct_space_state
 	var true_seen = []
 	for thing in in_sight_range:
@@ -34,9 +34,7 @@ func look(): # ONLY CALL IN PHYSICS PROCESS
 		if !space_state.intersect_ray(query):
 			true_seen.append(thing)
 	
-	print(true_seen)
-	# TODO operate on actually seen items
-
+	return true_seen
 
 
 func actor_setup():

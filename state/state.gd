@@ -5,7 +5,7 @@ signal exit_state
 
 var state_owner
 var push_state 
-
+var parameters
 
 func enter() -> void:
 	pass
