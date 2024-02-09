@@ -5,6 +5,9 @@ signal exit_state
 signal state_concluded
 signal cycle_finished
 
+var cycle_timer: Timer
+var cycle_freq: int = 1
+
 var state_owner
 var push_state 
 var parameters
@@ -20,7 +23,9 @@ func cycle() -> void:
 
 
 func enter() -> void:
-	pass
+	cycle_timer = Timer.new()
+	cycle_timer.one_shot = true
+	add_child(cycle_timer)
 
 
 func exit() -> void:
@@ -29,12 +34,16 @@ func exit() -> void:
 
 
 func pause() -> void:
-	pass
+	print("pause %s" % [get_script()])
+	set_process(false)
+	set_physics_process(false)
 	#self.process_mode = Node.PROCESS_MODE_DISABLED
 
 
 func unpause() -> void:
-	pass
+	print("unpause %s" % [get_script()])
+	set_process(true)
+	set_physics_process(true)
 	#self.process_mode = Node.PROCESS_MODE_PAUSABLE
 
 
