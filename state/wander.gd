@@ -10,17 +10,16 @@ func enter() -> void:
 
 # TODO Why does it wait for a moment at stops? 
 func _physics_process(delta):
+	if stops.size() == 0:
+		populate_stops()
+	if state_owner.navigation_agent.is_navigation_finished():
+		state_owner.set_target(stops.pop_back())
+
+	
 	if !cycle_timer.is_stopped():
 		return
 	
 	cycle_timer.start(cycle_freq)
-	
-	if stops.size() == 0:
-		populate_stops()
-	
-	if state_owner.navigation_agent.is_navigation_finished():
-		state_owner.set_target(stops.pop_back())
-	
 	
 	var things_seen: Array = state_owner.look()
 	if things_seen.is_empty():

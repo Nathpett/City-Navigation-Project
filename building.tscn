@@ -3,12 +3,8 @@
 [ext_resource type="Script" path="res://building.gd" id="1_8dsle"]
 [ext_resource type="Texture2D" uid="uid://dkw051bbanke4" path="res://icon.svg" id="2_ha4c5"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_5422v"]
-vertices = PackedVector2Array(8, 0, 0, 8, -8, 0, 0, -8)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, 0, 0, -8, 8, 0, 0, 8)])
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_bij7i"]
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8c8wq"]
 resource_name = "a1"
@@ -74,7 +70,7 @@ texture = ExtResource("2_ha4c5")
 3:2/0 = 0
 3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:2/0/physics_layer_0/angular_velocity = 0.0
-3:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_5422v")
+3:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_bij7i")
 4:2/0 = 0
 4:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 4:2/0/physics_layer_0/angular_velocity = 0.0

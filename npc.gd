@@ -30,7 +30,7 @@ func look() -> Array: # ONLY CALL IN PHYSICS PROCESS
 	var space_state = get_world_2d().direct_space_state # TODO THIS DOESNT FILTER
 	var true_seen = []
 	for thing in in_sight_range:
-		var query = PhysicsRayQueryParameters2D.create(Vector2(0, 0), Vector2(50, 100), 1)
+		var query = PhysicsRayQueryParameters2D.create(global_position, thing.global_position, 1)
 		if !space_state.intersect_ray(query):
 			true_seen.append(thing)
 	

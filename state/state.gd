@@ -34,14 +34,12 @@ func exit() -> void:
 
 
 func pause() -> void:
-	print("pause %s" % [get_script()])
 	set_process(false)
 	set_physics_process(false)
 	#self.process_mode = Node.PROCESS_MODE_DISABLED
 
 
 func unpause() -> void:
-	print("unpause %s" % [get_script()])
 	set_process(true)
 	set_physics_process(true)
 	#self.process_mode = Node.PROCESS_MODE_PAUSABLE
