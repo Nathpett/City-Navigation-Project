@@ -3,7 +3,7 @@ extends State
 
 var target_building
 var stops: Array
-var next_stop
+var next_stop = null
 
 func enter() -> void:
 	super.enter()
@@ -13,15 +13,17 @@ func enter() -> void:
 func pause() -> void:
 	super.pause()
 	stops.insert(0, next_stop)
+	next_stop = null
 
 
 func _physics_process(delta):
 	if stops.size() == 0:
 		populate_stops()
 	if state_owner.navigation_agent.is_navigation_finished():
+		next_stop = null
+	if next_stop == null:
 		next_stop = stops.pop_front()
-		state_owner.set_target(next_stop.global_position)
-		next_stop.modulate = Color.BLACK
+		state_owner.set_movement_target(next_stop.global_position)
 	if !cycle_timer.is_stopped():
 		return
 	

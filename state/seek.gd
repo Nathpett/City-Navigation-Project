@@ -7,9 +7,8 @@ var target
 
 func enter() -> void:
 	super.enter()
-	cycle_freq = 1
+	cycle_freq = 0.5
 	target = parameters["target"]
-	target.modulate = Color.BLACK
 	state_owner.navigation_agent.connect("navigation_finished", Callable(self, "_exit_condition_met"))
 
 
@@ -18,10 +17,10 @@ func _process(delta):
 		return
 	
 	cycle_timer.start(cycle_freq)
-	state_owner.set_target(target.global_position)
+	state_owner.set_movement_target(target.global_position)
 
 
 func _exit_condition_met() -> void:
-	target.queue_free()
+	state_owner.pick_up(target)
 	emit_signal("state_concluded")
 

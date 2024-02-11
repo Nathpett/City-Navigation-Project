@@ -21,13 +21,8 @@ func _ready():
 	$StateMachine.push_state("wander")
 
 
-func set_target(new_goal_position: Vector2):
-	movement_target_position = new_goal_position
-	call_deferred("actor_setup")
-
-
 func look() -> Array: # ONLY CALL IN PHYSICS PROCESS
-	var space_state = get_world_2d().direct_space_state # TODO THIS DOESNT FILTER
+	var space_state = get_world_2d().direct_space_state
 	var true_seen = []
 	for thing in in_sight_range:
 		var query = PhysicsRayQueryParameters2D.create(global_position, thing.global_position, 1)
@@ -37,18 +32,23 @@ func look() -> Array: # ONLY CALL IN PHYSICS PROCESS
 	return true_seen
 
 
+func pick_up() -> void:
+	pass # TODO NEXT
+
+
 func actor_setup():
 	await get_tree().physics_frame
 	set_movement_target(movement_target_position)
 
 
 func set_movement_target(movement_target: Vector2):
-	navigation_agent.target_position = movement_target
+	movement_target_position = movement_target
+	navigation_agent.target_position = movement_target_position
 
 
 func _physics_process(_delta):
 	if navigation_agent.is_navigation_finished() and !navigation_agent.is_target_reached():
-		actor_setup()
+		set_movement_target(movement_target_position)
 
 	var current_agent_position: Vector2 = global_position
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
