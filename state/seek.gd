@@ -9,7 +9,7 @@ func enter() -> void:
 	super.enter()
 	cycle_freq = 1
 	target = parameters["target"]
-
+	target.modulate = Color.BLACK
 	state_owner.navigation_agent.connect("navigation_finished", Callable(self, "_exit_condition_met"))
 
 

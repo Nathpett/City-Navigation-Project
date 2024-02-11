@@ -3,19 +3,25 @@ extends State
 
 var target_building
 var stops: Array
+var next_stop
 
 func enter() -> void:
 	super.enter()
 	stops = []
 
-# TODO Why does it wait for a moment at stops? 
+
+func pause() -> void:
+	super.pause()
+	stops.insert(0, next_stop)
+
+
 func _physics_process(delta):
 	if stops.size() == 0:
 		populate_stops()
 	if state_owner.navigation_agent.is_navigation_finished():
-		state_owner.set_target(stops.pop_back())
-
-	
+		next_stop = stops.pop_front()
+		state_owner.set_target(next_stop.global_position)
+		next_stop.modulate = Color.BLACK
 	if !cycle_timer.is_stopped():
 		return
 	
@@ -33,6 +39,6 @@ func _physics_process(delta):
 
 func populate_stops() -> void:
 	target_building = state_owner.city.random_building()
-	stops.append(target_building.get_node("Enterance").global_position)
+	stops.append(target_building.get_node("Enterance"))
 	var target_goal = target_building.random_goal()
-	stops.append(target_goal.global_position)
+	stops.append(target_goal)
