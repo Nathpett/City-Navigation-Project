@@ -29,6 +29,9 @@ func _physics_process(delta):
 	
 	cycle_timer.start(cycle_freq)
 	
+	if state_owner.holding != null:
+		return
+	
 	var things_seen: Array = state_owner.look()
 	if things_seen.is_empty():
 		return

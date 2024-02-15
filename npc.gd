@@ -5,6 +5,7 @@ var movement_speed: float = 100.0
 var movement_target_position: Vector2
 var city: City
 var in_sight_range: Array
+var holding = null
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
@@ -32,8 +33,22 @@ func look() -> Array: # ONLY CALL IN PHYSICS PROCESS
 	return true_seen
 
 
-func pick_up() -> void:
-	pass # TODO NEXT
+func pick_up(thing: Thing) -> void:
+	thing.evoke_pickup()
+	thing.get_parent().remove_child(thing)
+	add_child(thing)
+	holding = thing
+	
+	# position thing
+	thing.position = Vector2(0, -5)
+
+
+func drop() -> void:
+	holding.position = Vector2.ZERO
+	remove_child(holding)
+	get_parent().add_child(holding)
+	
+	holding = null
 
 
 func actor_setup():
