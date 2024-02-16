@@ -44,7 +44,8 @@ func pick_up(thing: Thing) -> void:
 
 
 func drop() -> void:
-	holding.position = Vector2.ZERO
+	holding.evoke_drop()
+	holding.position = global_position
 	remove_child(holding)
 	get_parent().add_child(holding)
 	

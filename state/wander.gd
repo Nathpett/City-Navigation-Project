@@ -3,27 +3,14 @@ extends State
 
 var target_building
 var stops: Array
-var next_stop = null
 
 func enter() -> void:
 	super.enter()
+	state_owner.get_node("NavigationAgent2D").connect("navigation_finished", Callable(self, "_on_state_owner_navigation_finished"))
 	stops = []
 
 
-func pause() -> void:
-	super.pause()
-	stops.insert(0, next_stop)
-	next_stop = null
-
-
-func _physics_process(delta):
-	if stops.size() == 0:
-		populate_stops()
-	if state_owner.navigation_agent.is_navigation_finished():
-		next_stop = null
-	if next_stop == null:
-		next_stop = stops.pop_front()
-		state_owner.set_movement_target(next_stop.global_position)
+func _physics_process(_delta):
 	if !cycle_timer.is_stopped():
 		return
 	
@@ -47,3 +34,11 @@ func populate_stops() -> void:
 	stops.append(target_building.get_node("Enterance"))
 	var target_goal = target_building.random_goal()
 	stops.append(target_goal)
+
+
+func _on_state_owner_navigation_finished() -> void:
+	if stops.size() == 0:
+		populate_stops()
+		if state_owner.holding:
+			state_owner.drop()
+	state_owner.set_movement_target(stops.pop_front().global_position)

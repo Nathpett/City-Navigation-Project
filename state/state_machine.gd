@@ -5,10 +5,13 @@ var state
 var state_stack: Array
 
 
-func push_state(state_name, parameters = null) -> void:
+func push_state(state_name, parameters = null, overwrite = false) -> void:
 	if state != null:
-		state.pause()
-		state_stack.append(state)
+		if overwrite:
+			state.exit()
+		else:
+			state.pause()
+			state_stack.append(state)
 	state = Node.new()
 	state.set_script(load("res://state/%s.gd" % [state_name]))
 	state.state_owner = get_parent()

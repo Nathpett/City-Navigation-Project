@@ -6,7 +6,7 @@ signal state_concluded
 signal cycle_finished
 
 var cycle_timer: Timer
-var cycle_freq: int = 1
+var cycle_freq: float = 1.0
 
 var state_owner
 var push_state 

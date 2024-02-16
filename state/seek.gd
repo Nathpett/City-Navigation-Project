@@ -12,7 +12,7 @@ func enter() -> void:
 	state_owner.navigation_agent.connect("navigation_finished", Callable(self, "_exit_condition_met"))
 
 
-func _process(delta):
+func _process(_delta):
 	if !cycle_timer.is_stopped():
 		return
 	
