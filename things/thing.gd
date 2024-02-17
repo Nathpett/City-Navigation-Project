@@ -4,7 +4,7 @@ extends Node2D
 signal drop
 
 func evoke_pickup():
-	$StateMachine.push_state("held")
+	$StateMachine.push_state("held",  null, true)
 
 
 func evoke_drop():

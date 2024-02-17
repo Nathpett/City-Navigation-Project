@@ -3,6 +3,7 @@ extends State
 
 var target_building
 var stops: Array
+var last_thing_seeked = null
 
 func enter() -> void:
 	super.enter()
@@ -11,11 +12,6 @@ func enter() -> void:
 
 
 func _physics_process(_delta):
-	if !cycle_timer.is_stopped():
-		return
-	
-	cycle_timer.start(cycle_freq)
-	
 	if state_owner.holding != null:
 		return
 	
@@ -24,8 +20,9 @@ func _physics_process(_delta):
 		return
 	things_seen.shuffle()
 	for thing in things_seen:
-		if thing: # if thing meets search criteria TODO
+		if thing != last_thing_seeked and thing: # if thing meets search criteria TODO
 			push_state.call("seek", {"target": thing})
+			last_thing_seeked = thing
 			return
 
 

@@ -14,4 +14,4 @@ func exit() -> void:
 
 
 func _on_drop() -> void:
-	get_parent().push_state("out")
+	get_parent().push_state("out", null, true)
