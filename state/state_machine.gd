@@ -19,7 +19,10 @@ func push_state(state_name, parameters = null, overwrite = false) -> void:
 	state.push_state = Callable(self, "push_state")
 	state.connect("state_concluded", Callable(self, "_on_state_concluded"))
 	add_child(state)
-	state.parameters = parameters
+	if parameters == null:
+		parameters = {}
+	else:
+		state.parameters = parameters
 	state.enter()
 
 

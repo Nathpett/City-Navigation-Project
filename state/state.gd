@@ -10,7 +10,7 @@ var cycle_freq: float = 1.0
 
 var state_owner
 var push_state 
-var parameters
+var parameters: Dictionary = {}
 
 
 func _ready():
