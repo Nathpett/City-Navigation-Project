@@ -9,12 +9,13 @@ var cycle_timer: Timer
 var cycle_freq: float = 1.0
 
 var state_owner
-var push_state 
+var state_machine
 var parameters: Dictionary = {}
 
 
 func _ready():
 	self.connect("cycle_finished", Callable(self, "cycle"))
+	state_machine = get_parent()
 
 
 func cycle() -> void:

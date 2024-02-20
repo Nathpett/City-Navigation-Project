@@ -5,8 +5,7 @@ extends State
 
 var target_building
 var stops: Array
-var last_thing_seeked = null
-var seek_criteria: String
+var exit_criteria: String
 
 
 func enter() -> void:
@@ -14,7 +13,7 @@ func enter() -> void:
 	state_owner.get_node("NavigationAgent2D").connect("navigation_finished", Callable(self, "_on_state_owner_navigation_finished"))
 	stops = []
 	
-	seek_criteria = parameters.get("seet_criteria", "thing")
+	exit_criteria = parameters.get("exit_criteria", "thing")
 
 
 func _physics_process(_delta):
@@ -26,9 +25,10 @@ func _physics_process(_delta):
 		return
 	things_seen.shuffle()
 	for thing in things_seen:
-		if thing.get_script().get_path().get_file().get_basename() == seek_criteria:
-			push_state.call("seek", {"target": thing}) # TODO EXIT STATE BUT SOMEHOW KEEP KNOWLEDGE OF SOUGHT THING!
-			last_thing_seeked = thing
+		if thing.get_script().get_path().get_file().get_basename() == exit_criteria:
+			state_owner.set_meta("target", thing)
+			emit_signal("state_concluded")
+			#push_state.call("seek", {"target": thing}) # TODO EXIT STATE BUT SOMEHOW KEEP KNOWLEDGE OF SOUGHT THING!
 			return
 
 

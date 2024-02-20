@@ -21,6 +21,6 @@ func _process(_delta):
 
 
 func _exit_condition_met() -> void:
-	state_owner.pick_up(target)
+	state_owner.pick_up(target)# TODO DONT DO ANYTHING JUST BE THERE
 	emit_signal("state_concluded")
 

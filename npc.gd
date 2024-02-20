@@ -6,6 +6,7 @@ var movement_target_position: Vector2
 var city: City
 var in_sight_range: Array
 var holding = null
+var target = null
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
@@ -19,7 +20,7 @@ func _ready():
 	city = get_parent()
 	in_sight_range = []
 	
-	$StateMachine.push_state("wander")
+	$StateMachine.push_state("porter")
 
 
 func look() -> Array: # ONLY CALL IN PHYSICS PROCESS

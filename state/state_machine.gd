@@ -1,6 +1,8 @@
 class_name StateMachine
 extends Node
 
+signal state_concluded
+
 var state
 var state_stack: Array
 
@@ -16,7 +18,6 @@ func push_state(state_name, parameters = null, overwrite = false) -> void:
 	var _script = _get_state_script(state_name)
 	state.set_script(_script)
 	state.state_owner = get_parent()
-	state.push_state = Callable(self, "push_state")
 	state.connect("state_concluded", Callable(self, "_on_state_concluded"))
 	add_child(state)
 	if parameters == null:
@@ -32,6 +33,7 @@ func _on_state_concluded() -> void:
 		return
 	state = state_stack.pop_back()
 	state.unpause()
+	emit_signal("state_concluded")
 
 
 func _get_state_script(state_name: String):
