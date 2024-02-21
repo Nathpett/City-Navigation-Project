@@ -2,11 +2,12 @@ class_name State
 extends Node
 
 signal exit_state
-signal state_concluded
+signal state_concluded()
 signal cycle_finished
 
 var cycle_timer: Timer
 var cycle_freq: float = 1.0
+var is_paused: bool = false
 
 var state_owner
 var state_machine
@@ -35,12 +36,14 @@ func exit() -> void:
 
 
 func pause() -> void:
+	is_paused = true
 	set_process(false)
 	set_physics_process(false)
 	#self.process_mode = Node.PROCESS_MODE_DISABLED
 
 
 func unpause() -> void:
+	is_paused = false
 	set_process(true)
 	set_physics_process(true)
 	#self.process_mode = Node.PROCESS_MODE_PAUSABLE

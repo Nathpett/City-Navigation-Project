@@ -8,7 +8,7 @@ var state_stack: Array
 
 
 func push_state(state_name, parameters = null, overwrite = false) -> void:
-	if state != null:
+	if state != null and !state.is_queued_for_deletion():
 		if overwrite:
 			state.exit()
 		else:
@@ -29,10 +29,9 @@ func push_state(state_name, parameters = null, overwrite = false) -> void:
 
 func _on_state_concluded() -> void:
 	state.exit()
-	if len(state_stack) == 0:
-		return
-	state = state_stack.pop_back()
-	state.unpause()
+	if len(state_stack) > 0:
+		state = state_stack.pop_back()
+		state.unpause()
 	emit_signal("state_concluded")
 
 

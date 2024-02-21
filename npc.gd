@@ -7,6 +7,7 @@ var city: City
 var in_sight_range: Array
 var holding = null
 var target = null
+var state_successful: bool = false
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 

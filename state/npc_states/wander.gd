@@ -14,12 +14,10 @@ func enter() -> void:
 	stops = []
 	
 	exit_criteria = parameters.get("exit_criteria", "thing")
+	_on_state_owner_navigation_finished()
 
 
 func _physics_process(_delta):
-	if state_owner.holding != null:
-		return
-	
 	var things_seen: Array = state_owner.look()
 	if things_seen.is_empty():
 		return
@@ -27,8 +25,8 @@ func _physics_process(_delta):
 	for thing in things_seen:
 		if thing.get_script().get_path().get_file().get_basename() == exit_criteria:
 			state_owner.set_meta("target", thing)
+			state_owner.state_successful = true
 			emit_signal("state_concluded")
-			#push_state.call("seek", {"target": thing}) # TODO EXIT STATE BUT SOMEHOW KEEP KNOWLEDGE OF SOUGHT THING!
 			return
 
 
@@ -42,6 +40,4 @@ func populate_stops() -> void:
 func _on_state_owner_navigation_finished() -> void:
 	if stops.size() == 0:
 		populate_stops()
-		if state_owner.holding:
-			state_owner.drop()
 	state_owner.set_movement_target(stops.pop_front().global_position)
