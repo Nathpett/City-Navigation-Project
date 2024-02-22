@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://b17fo24bty4m1"]
+[gd_scene load_steps=10 format=3 uid="uid://b17fo24bty4m1"]
 
 [ext_resource type="Script" path="res://city.gd" id="1_gpgsi"]
 [ext_resource type="Texture2D" uid="uid://dkw051bbanke4" path="res://icon.svg" id="2_rbahg"]
 [ext_resource type="Script" path="res://npc_spawner.gd" id="3_6sde0"]
 [ext_resource type="PackedScene" uid="uid://clw6b2ern45np" path="res://building.tscn" id="4_358ys"]
 [ext_resource type="PackedScene" uid="uid://ccwa6pbmgfq8" path="res://things/thing.tscn" id="5_ibd3p"]
+[ext_resource type="PackedScene" uid="uid://chvoshfhdrj1n" path="res://things/box.tscn" id="6_rmpsa"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_dssy0"]
 vertices = PackedVector2Array(8, 0, 0, 8, -8, 0, 0, -8)
@@ -272,3 +273,6 @@ position = Vector2(120, 472)
 
 [node name="Thing4" parent="." instance=ExtResource("5_ibd3p")]
 position = Vector2(168, 168)
+
+[node name="Box" parent="." instance=ExtResource("6_rmpsa")]
+position = Vector2(104, 56)

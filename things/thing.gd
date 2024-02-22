@@ -9,3 +9,7 @@ func evoke_pickup():
 
 func evoke_drop():
 	emit_signal("drop")
+
+
+func evoke_stored():
+	$StateMachine.push_state("stored")

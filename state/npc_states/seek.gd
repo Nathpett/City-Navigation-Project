@@ -21,6 +21,7 @@ func _process(_delta):
 
 
 func _exit_condition_met() -> void:
-	state_owner.pick_up(target)# TODO DONT DO ANYTHING JUST BE THERE
+	var nav_agent: NavigationAgent2D = state_owner.navigation_agent
+	state_owner.state_successful = nav_agent.is_navigation_finished()
 	emit_signal("state_concluded")
 

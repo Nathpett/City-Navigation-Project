@@ -7,7 +7,7 @@ var store_stack: Array = []
 
 func store(thing: Thing) -> void:
 	store_stack.append(thing)
-	thing.push_state("stored")
+	thing.evoke_stored()
 
 
 func can_store() -> bool:

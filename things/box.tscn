@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://chvoshfhdrj1n"]
+
+[ext_resource type="PackedScene" uid="uid://ccwa6pbmgfq8" path="res://things/thing.tscn" id="1_nprd2"]
+[ext_resource type="Script" path="res://things/box.gd" id="2_1x72n"]
+
+[node name="Box" instance=ExtResource("1_nprd2")]
+script = ExtResource("2_1x72n")
+storage_capacity = 3
+
+[node name="Sprite2D" parent="." index="0"]
+modulate = Color(0.368627, 0.156863, 0.0392157, 1)
