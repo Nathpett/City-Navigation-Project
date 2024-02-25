@@ -1,13 +1,11 @@
 class_name StateMachine
 extends Node
 
-signal state_concluded
-
 var state
 var state_stack: Array
 
 
-func push_state(state_name, parameters = null, overwrite = false) -> void:
+func push_state(state_name, parameters = null, overwrite = false):
 	if state != null and !state.is_queued_for_deletion():
 		if overwrite:
 			state.exit()
@@ -25,6 +23,8 @@ func push_state(state_name, parameters = null, overwrite = false) -> void:
 	else:
 		state.parameters = parameters
 	state.enter()
+	
+	return state
 
 
 func _on_state_concluded() -> void:
@@ -32,7 +32,6 @@ func _on_state_concluded() -> void:
 	if len(state_stack) > 0:
 		state = state_stack.pop_back()
 		state.unpause()
-	emit_signal("state_concluded")
 
 
 func _get_state_script(state_name: String):
