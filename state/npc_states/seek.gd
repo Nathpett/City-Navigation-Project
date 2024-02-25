@@ -1,5 +1,5 @@
 class_name Seek
-extends State
+extends NpcBaseState
 
 
 var target
@@ -10,6 +10,16 @@ func enter() -> void:
 	cycle_freq = 0.5
 	target = parameters["target"]
 	state_owner.navigation_agent.connect("navigation_finished", Callable(self, "_exit_condition_met"))
+
+
+func pause() -> void:
+	super.pause()
+	state_owner.set_movement_target(null)
+
+
+func unpause() -> void:
+	state_owner.set_movement_target(target.global_position)
+	super.unpause()
 
 
 func _process(_delta):

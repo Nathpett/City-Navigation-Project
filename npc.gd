@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Thing
 
 
 var movement_speed: float = 100.0
@@ -8,6 +8,7 @@ var in_sight_range: Array
 var holding = null
 var target = null
 var state_successful: bool = false
+var has_target_position: bool = false
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
@@ -59,12 +60,20 @@ func actor_setup():
 	set_movement_target(movement_target_position)
 
 
-func set_movement_target(movement_target: Vector2):
+func set_movement_target(movement_target):
+	if movement_target == null: 
+		movement_target_position = Vector2.ZERO
+		has_target_position = false
+		return
+	has_target_position = true
 	movement_target_position = movement_target
 	navigation_agent.target_position = movement_target_position
 
 
 func _physics_process(_delta):
+	if !has_target_position:
+		return
+	
 	if navigation_agent.is_navigation_finished() and !navigation_agent.is_target_reached():
 		set_movement_target(movement_target_position)
 

@@ -1,5 +1,5 @@
-class_name WanderState # TODO RENAME TO WANDER SEEK
-extends State
+class_name WanderAndSeekFind
+extends NpcBaseState
 
 # State makes NPC wander city until it finds a specific object
 
@@ -18,7 +18,7 @@ func enter() -> void:
 
 
 func _physics_process(_delta):
-	var things_seen: Array = state_owner.look()
+	super._physics_process(_delta)
 	if things_seen.is_empty():
 		return
 	things_seen.shuffle()

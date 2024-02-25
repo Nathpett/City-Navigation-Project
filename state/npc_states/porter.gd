@@ -7,11 +7,11 @@ func enter() -> void:
 
 func state_logic() -> void:
 	while true:
-		state_machine.push_state("wander", {"exit_criteria": "thing"})
+		state_machine.push_state("wander_and_find", {"exit_criteria": "thing"})
 		await state_machine.state_concluded
 		
 		state_machine.push_state("seek", {"target": state_owner.get_meta("target")})
-		await state_machine.state_concluded
+		await state_machine.state_concluded # TODO NEXT THIS FUCKS UP WHEN OTHER STATES ARE PUSHED
 		
 		var ported_item
 		if state_owner.state_successful:
@@ -20,7 +20,7 @@ func state_logic() -> void:
 		else:
 			continue
 		
-		state_machine.push_state("wander", {"exit_criteria": "box"})
+		state_machine.push_state("wander_and_find", {"exit_criteria": "box"})
 		await state_machine.state_concluded
 		
 		var box = state_owner.get_meta("target")

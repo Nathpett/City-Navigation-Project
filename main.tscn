@@ -265,6 +265,10 @@ position = Vector2(744, 152)
 [node name="Thing" parent="." instance=ExtResource("5_ibd3p")]
 position = Vector2(200, 56)
 
+[node name="Thing6" parent="." instance=ExtResource("5_ibd3p")]
+position = Vector2(312, 56)
+flee_from_debug = true
+
 [node name="Thing2" parent="." instance=ExtResource("5_ibd3p")]
 position = Vector2(536, 344)
 
