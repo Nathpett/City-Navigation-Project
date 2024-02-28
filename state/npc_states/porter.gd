@@ -12,7 +12,7 @@ func state_logic() -> void:
 		await sub_state.state_concluded
 		
 		sub_state = state_machine.push_state("seek", {"target": state_owner.get_meta("target")})
-		await sub_state.state_concluded # TODO NEXT THIS FUCKS UP WHEN OTHER STATES ARE PUSHED
+		await sub_state.state_concluded 
 		
 		var ported_item
 		if state_owner.state_successful:
