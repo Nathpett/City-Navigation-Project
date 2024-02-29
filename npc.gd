@@ -11,6 +11,9 @@ var target = null
 var state_successful: bool = false
 var has_target_position: bool = false
 
+@export var reaction_speed: int = 10 # number of frames before reacting to something
+@export var sight_range: float = 130
+
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
 
@@ -22,6 +25,8 @@ func _ready():
 	
 	city = get_parent()
 	in_sight_range = []
+	
+	$SightArea/CollisionShape2D.shape.radius = sight_range
 	
 	$StateMachine.push_state("porter")
 
@@ -83,8 +88,6 @@ func _physics_process(_delta):
 		velocity = direction * movement_speed
 	else:
 		velocity = manual_nav_vector * movement_speed
-	
-
 	
 	move_and_slide()
 
