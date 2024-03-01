@@ -1,5 +1,6 @@
 extends Thing
 
+signal saw_thing
 
 var movement_speed: float = 100.0
 var manual_nav_vector: Vector2 = Vector2.ZERO
@@ -78,8 +79,8 @@ func set_movement_target(movement_target):
 
 func _physics_process(_delta):
 	if has_target_position:
-		if navigation_agent.is_navigation_finished() and !navigation_agent.is_target_reached():
-			set_movement_target(movement_target_position)
+		#if navigation_agent.is_navigation_finished() and !navigation_agent.is_target_reached():
+			#set_movement_target(movement_target_position)
 		
 		var current_agent_position: Vector2 = global_position
 		var next_path_position: Vector2 = navigation_agent.get_next_path_position()
@@ -111,6 +112,7 @@ func _on_sight_area_area_entered(area):
 	if thing == self:
 		return
 	in_sight_range.append(thing)
+	emit_signal("saw_thing")
 
 
 func _on_sight_area_area_exited(area):
