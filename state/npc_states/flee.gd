@@ -30,6 +30,8 @@ func _physics_process(_delta):
 	var scary_thing_ct = 0
 	for thing in things_seen:
 		if thing.flee_from_debug:
+			if scary_thing_ct == 0:
+				average_scary_thing_position = Vector2.ZERO
 			scary_thing_ct += 1
 			average_scary_thing_position += thing.global_position
 	
@@ -64,6 +66,7 @@ func _physics_process(_delta):
 		if dist > champ_dist:
 			champ_dist = dist
 			champ_nav = nav
+	print(champ_nav)
 	
 	state_owner.set_movement_target(champ_nav)
 
