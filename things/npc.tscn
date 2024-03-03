@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://3nh4d1xc5avs"]
 
-[ext_resource type="Script" path="res://npc.gd" id="1_mukjw"]
+[ext_resource type="Script" path="res://things/npc.gd" id="1_mukjw"]
 [ext_resource type="Script" path="res://state/state_machine.gd" id="2_hifb0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rylqn"]

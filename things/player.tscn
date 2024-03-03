@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0x3p1mj2mui0"]
+
+[ext_resource type="Script" path="res://things/npc.gd" id="1_0xqsc"]
+[ext_resource type="Script" path="res://state/state_machine.gd" id="2_dhwaf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rylqn"]
+radius = 3.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hxpec"]
+size = Vector2(10, 10)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f74tm"]
+resource_local_to_scene = true
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 2
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_0xqsc")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rylqn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_hxpec")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_dhwaf")
+
+[node name="SightArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SightArea"]
+shape = SubResource("CircleShape2D_f74tm")
+
+[connection signal="area_entered" from="SightArea" to="." method="_on_sight_area_area_entered"]
+[connection signal="area_exited" from="SightArea" to="." method="_on_sight_area_area_exited"]

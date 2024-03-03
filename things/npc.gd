@@ -1,13 +1,10 @@
-extends Thing
+extends Character
 
 signal saw_thing
 
-var movement_speed: float = 100.0
 var manual_nav_vector: Vector2 = Vector2.ZERO
 var movement_target_position: Vector2
-var city: City
 var in_sight_range: Array
-var holding = null
 var target = null
 var state_successful: bool = false
 var has_target_position: bool = false
@@ -19,12 +16,12 @@ var has_target_position: bool = false
 
 
 func _ready():
+	super._ready()
 	# These values need to be adjusted for the actor's speed
 	# and the navigation layout.
 	navigation_agent.path_desired_distance = 4.0
 	navigation_agent.target_desired_distance = 4.0
 	
-	city = get_parent()
 	in_sight_range = []
 	
 	$SightArea/CollisionShape2D.shape.radius = sight_range
@@ -41,25 +38,6 @@ func look() -> Array: # ONLY CALL IN PHYSICS PROCESS
 			true_seen.append(thing)
 	
 	return true_seen
-
-
-func pick_up(thing: Thing) -> void:
-	thing.evoke_pickup()
-	thing.get_parent().remove_child(thing)
-	add_child(thing)
-	holding = thing
-	
-	# position thing
-	thing.position = Vector2(0, -5)
-
-
-func drop() -> void:
-	holding.evoke_drop()
-	holding.position = global_position
-	remove_child(holding)
-	get_parent().add_child(holding)
-	
-	holding = null
 
 
 func actor_setup():

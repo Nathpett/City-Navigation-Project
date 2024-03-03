@@ -4,6 +4,7 @@ var exit_timer: Timer
 var reassess_navigation: bool = true
 var average_scary_thing_position:= Vector2.ZERO
 var reassess_timer
+var flee_time = 4
 
 func _ready():
 	exit_timer = Timer.new()
@@ -38,7 +39,7 @@ func _physics_process(_delta):
 	if scary_thing_ct > 0:
 		average_scary_thing_position /= scary_thing_ct
 		exit_timer.stop()
-		exit_timer.start(2)
+		exit_timer.start(flee_time)
 	
 	if !reassess_navigation:
 		return
@@ -66,7 +67,6 @@ func _physics_process(_delta):
 		if dist > champ_dist:
 			champ_dist = dist
 			champ_nav = nav
-	print(champ_nav)
 	
 	state_owner.set_movement_target(champ_nav)
 

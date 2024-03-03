@@ -3,7 +3,7 @@ extends Node2D
 var npc_packed_scene: PackedScene
 
 func _ready() -> void:
-	npc_packed_scene = load("res://npc.tscn")
+	npc_packed_scene = load("res://things/npc.tscn")
 	
 	call_deferred("_spawn")
 	while(true):
