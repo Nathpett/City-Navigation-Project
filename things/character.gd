@@ -27,3 +27,16 @@ func drop() -> void:
 	get_parent().add_child(holding)
 	
 	holding = null
+
+
+func _get_cell() -> Vector2i:
+	var tile_size: Vector2 = city.get_tile_size()
+	var vec = global_position / tile_size
+	
+	return Vector2i(vec)
+
+
+func position_from_cel(vec: Vector2i) -> Vector2:
+	var tile_size: Vector2 = city.get_tile_size()
+	
+	return Vector2(vec * tile_size.x)

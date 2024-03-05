@@ -1,5 +1,5 @@
 extends Character
-
+# TODO NEXT MAKE CHARACTERS NODE2D and FORGET PHYSICS WE'RE JUST GONNA TO TURN BASED
 signal saw_thing
 
 var manual_nav_vector: Vector2 = Vector2.ZERO
@@ -55,6 +55,15 @@ func set_movement_target(movement_target):
 	navigation_agent.target_position = movement_target_position
 
 
+func process_turn() -> void:
+	if has_target_position:
+		var current_agent_position: Vector2 = _get_cell()
+		var next_path_position: Vector2 = navigation_agent.get_next_path_position()
+		
+		var direction = current_agent_position.direction_to(next_path_position)
+		position += city.get_tile_size()
+
+
 func _physics_process(_delta):
 	if has_target_position:
 		#if navigation_agent.is_navigation_finished() and !navigation_agent.is_target_reached():
@@ -67,11 +76,10 @@ func _physics_process(_delta):
 		velocity = direction * movement_speed
 	else:
 		velocity = manual_nav_vector * movement_speed
-	
 	move_and_slide()
 
 
-func _get_closest_cardinal_vecotr(vec2: Vector2):
+func _get_closest_cardinal_vector(vec2: Vector2):
 	var max_dot_product = -1.0
 	var closest_direction = Vector2.ZERO
 
