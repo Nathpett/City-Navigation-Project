@@ -30,9 +30,12 @@ func drop() -> void:
 
 
 func _get_cell() -> Vector2i:
+	return cellify(global_position)
+
+
+func cellify(pos: Vector2):
 	var tile_size: Vector2 = city.get_tile_size()
-	var vec = global_position / tile_size
-	
+	var vec = pos / tile_size
 	return Vector2i(vec)
 
 

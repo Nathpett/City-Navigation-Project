@@ -8,6 +8,8 @@ var in_sight_range: Array
 var target = null
 var state_successful: bool = false
 var has_target_position: bool = false
+var navigation_path: PackedVector2Array
+
 
 @export var reaction_speed: int = 10 # number of frames before reacting to something
 @export var sight_range: float = 130
@@ -17,16 +19,13 @@ var has_target_position: bool = false
 
 func _ready():
 	super._ready()
-	# These values need to be adjusted for the actor's speed
-	# and the navigation layout.
-	navigation_agent.path_desired_distance = 4.0
-	navigation_agent.target_desired_distance = 4.0
-	
 	in_sight_range = []
 	
 	$SightArea/CollisionShape2D.shape.radius = sight_range
 	
 	$StateMachine.push_state("porter")
+	
+	TurnMaster.connect("turn_body", Callable(self, "process_turn"))
 
 
 func look() -> Array: # ONLY CALL IN PHYSICS PROCESS
@@ -53,30 +52,35 @@ func set_movement_target(movement_target):
 	has_target_position = true
 	movement_target_position = movement_target
 	navigation_agent.target_position = movement_target_position
+	navigation_path = navigation_agent.get_current_navigation_path()
 
 
 func process_turn() -> void:
 	if has_target_position:
-		var current_agent_position: Vector2 = _get_cell()
-		var next_path_position: Vector2 = navigation_agent.get_next_path_position()
-		
-		var direction = current_agent_position.direction_to(next_path_position)
-		position += city.get_tile_size()
-
-
-func _physics_process(_delta):
-	if has_target_position:
-		#if navigation_agent.is_navigation_finished() and !navigation_agent.is_target_reached():
-			#set_movement_target(movement_target_position)
-		
 		var current_agent_position: Vector2 = global_position
 		var next_path_position: Vector2 = navigation_agent.get_next_path_position()
 		
 		var direction = current_agent_position.direction_to(next_path_position)
-		velocity = direction * movement_speed
-	else:
-		velocity = manual_nav_vector * movement_speed
-	move_and_slide()
+		var half_pi = PI / 2.0
+		var rounded_angle = direction.angle()
+		rounded_angle = floor(rounded_angle / half_pi) * half_pi
+		direction = Vector2.RIGHT.rotated(rounded_angle)
+		position += direction * city.get_tile_size()
+
+
+#func _physics_process(_delta):
+	#if has_target_position:
+		##if navigation_agent.is_navigation_finished() and !navigation_agent.is_target_reached():
+			##set_movement_target(movement_target_position)
+		#
+		#var current_agent_position: Vector2 = global_position
+		#var next_path_position: Vector2 = navigation_agent.get_next_path_position()
+		#
+		#var direction = current_agent_position.direction_to(next_path_position)
+		#velocity = direction * movement_speed
+	#else:
+		#velocity = manual_nav_vector * movement_speed
+	#move_and_slide()
 
 
 func _get_closest_cardinal_vector(vec2: Vector2):
