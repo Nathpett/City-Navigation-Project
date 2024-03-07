@@ -18,6 +18,8 @@ func enter() -> void:
 
 
 func _physics_process(_delta):
+	if has_physics_this_turn:
+		return
 	super._physics_process(_delta)
 	if things_seen.is_empty():
 		return

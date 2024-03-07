@@ -4,9 +4,12 @@ var exit_timer: Timer
 var reassess_navigation: bool = true
 var average_scary_thing_position:= Vector2.ZERO
 var reassess_timer
-var flee_time = 4
+var flee_turns = 20
+
 
 func _ready():
+	super._ready()
+	
 	exit_timer = Timer.new()
 	add_child(exit_timer)
 	
@@ -20,12 +23,10 @@ func _ready():
 	state_owner.connect("saw_thing", Callable(self, "_prime_reassess"))
 
 
-#func enter() -> void:
-	#await get_tree().create_timer(2).timeout
-	#emit_signal("state_concluded")
-
-
 func _physics_process(_delta):
+	if has_physics_this_turn:
+		return
+	
 	super._physics_process(_delta)
 	
 	var scary_thing_ct = 0

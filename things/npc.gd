@@ -63,24 +63,9 @@ func process_turn() -> void:
 		var direction = current_agent_position.direction_to(next_path_position)
 		var half_pi = PI / 2.0
 		var rounded_angle = direction.angle()
-		rounded_angle = floor(rounded_angle / half_pi) * half_pi
+		rounded_angle = round(rounded_angle / half_pi) * half_pi
 		direction = Vector2.RIGHT.rotated(rounded_angle)
 		position += direction * city.get_tile_size()
-
-
-#func _physics_process(_delta):
-	#if has_target_position:
-		##if navigation_agent.is_navigation_finished() and !navigation_agent.is_target_reached():
-			##set_movement_target(movement_target_position)
-		#
-		#var current_agent_position: Vector2 = global_position
-		#var next_path_position: Vector2 = navigation_agent.get_next_path_position()
-		#
-		#var direction = current_agent_position.direction_to(next_path_position)
-		#velocity = direction * movement_speed
-	#else:
-		#velocity = manual_nav_vector * movement_speed
-	#move_and_slide()
 
 
 func _get_closest_cardinal_vector(vec2: Vector2):
