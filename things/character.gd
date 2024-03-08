@@ -10,6 +10,13 @@ func _ready():
 	city = get_parent()
 
 
+func move_character(direction: Vector2i) -> void:
+	var possible_tile = city.get_map_local(global_position) + direction
+	if city.is_collide(possible_tile):
+		return
+	position = city.map_to_global(possible_tile) # TODO use tween?
+
+
 func pick_up(thing: Thing) -> void:
 	thing.evoke_pickup()
 	thing.get_parent().remove_child(thing)
@@ -27,19 +34,3 @@ func drop() -> void:
 	get_parent().add_child(holding)
 	
 	holding = null
-
-
-func _get_cell() -> Vector2i:
-	return cellify(global_position)
-
-
-func cellify(pos: Vector2):
-	var tile_size: Vector2 = city.get_tile_size()
-	var vec = pos / tile_size
-	return Vector2i(vec)
-
-
-func position_from_cel(vec: Vector2i) -> Vector2:
-	var tile_size: Vector2 = city.get_tile_size()
-	
-	return Vector2(vec * tile_size.x)

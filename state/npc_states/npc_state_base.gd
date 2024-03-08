@@ -3,18 +3,20 @@ extends State
 
 var things_seen: Array = []
 
-var flee_streak: int = 0 # running streak of frames that state_owner has seen a think worth fleeing from for
 var seen_flee: bool = false
 var has_physics_this_turn: bool = false
 
 
 func _ready():
-	TurnMaster.connect("prime_physics", Callable(self, "set").bind("has_physics_this_turn", true))
+	super._ready()
+	TurnMaster.connect("prime_physics", Callable(self, "set").bind("has_physics_this_turn", false))
+	TurnMaster.connect("cleanup_turn", Callable(self, "_on_cleanup_turn"))
 
 
 func _physics_process(_delta):
 	if has_physics_this_turn:
 		return
+	call_deferred("set", "has_physics_this_turn", true)
 	
 	things_seen = state_owner.look()
 	
@@ -26,8 +28,8 @@ func _physics_process(_delta):
 				break
 		
 		if seen_flee:
-			flee_streak += 1
-		
-		if flee_streak > state_owner.reaction_speed:
-			flee_streak = 0
 			state_machine.push_state("flee")
+
+
+func _on_cleanup_turn() -> void:
+	pass

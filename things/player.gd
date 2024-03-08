@@ -1,6 +1,6 @@
 extends Character
 
-var turn_exhausted = true
+var turn_exhausted = false
 
 
 func _input(event):
@@ -28,5 +28,4 @@ func _input(event):
 		
 		if valid_press:
 			TurnMaster.execute_turn()
-	
-	position += direction * city.get_tile_size()
+			move_character(direction)

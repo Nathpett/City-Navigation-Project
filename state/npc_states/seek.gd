@@ -1,7 +1,6 @@
 class_name Seek
 extends NpcBaseState
 
-
 var target
 
 

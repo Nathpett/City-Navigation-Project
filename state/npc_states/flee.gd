@@ -1,31 +1,19 @@
 extends NpcBaseState
 
-var exit_timer: Timer
-var reassess_navigation: bool = true
 var average_scary_thing_position:= Vector2.ZERO
-var reassess_timer
 var flee_turns = 20
 
 
 func _ready():
 	super._ready()
-	
-	exit_timer = Timer.new()
-	add_child(exit_timer)
-	
-	reassess_timer = Timer.new()
-	add_child(reassess_timer)
-	
-	reassess_timer.start(0.1)
-	
-	exit_timer.connect("timeout", Callable(self, "emit_signal").bind("state_concluded"))
-	reassess_timer.connect("timeout", Callable(self, "_prime_reassess"))
 	state_owner.connect("saw_thing", Callable(self, "_prime_reassess"))
 
 
 func _physics_process(_delta):
 	if has_physics_this_turn:
 		return
+	
+	flee_turns -= 1
 	
 	super._physics_process(_delta)
 	
@@ -39,13 +27,6 @@ func _physics_process(_delta):
 	
 	if scary_thing_ct > 0:
 		average_scary_thing_position /= scary_thing_ct
-		exit_timer.stop()
-		exit_timer.start(flee_time)
-	
-	if !reassess_navigation:
-		return
-	
-	reassess_navigation = false
 	
 	var dirs := []
 	for i in range(8):
@@ -72,7 +53,6 @@ func _physics_process(_delta):
 	state_owner.set_movement_target(champ_nav)
 
 
-func _prime_reassess() -> void:
-	reassess_navigation = true
-	reassess_timer.stop()
-	reassess_timer.start(0.1)
+func _on_cleanup_turn() -> void:
+	if flee_turns == 0:
+		emit_signal("state_concluded")

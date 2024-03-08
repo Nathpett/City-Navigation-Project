@@ -1,5 +1,4 @@
 extends Character
-# TODO NEXT MAKE CHARACTERS NODE2D and FORGET PHYSICS WE'RE JUST GONNA TO TURN BASED
 signal saw_thing
 
 var manual_nav_vector: Vector2 = Vector2.ZERO
@@ -25,7 +24,7 @@ func _ready():
 	
 	$StateMachine.push_state("porter")
 	
-	TurnMaster.connect("turn_body", Callable(self, "process_turn"))
+	TurnMaster.connect("turn_body", Callable(self, "process_turn")) # TODO this should be called directly not via signals
 
 
 func look() -> Array: # ONLY CALL IN PHYSICS PROCESS
@@ -65,7 +64,8 @@ func process_turn() -> void:
 		var rounded_angle = direction.angle()
 		rounded_angle = round(rounded_angle / half_pi) * half_pi
 		direction = Vector2.RIGHT.rotated(rounded_angle)
-		position += direction * city.get_tile_size()
+		move_character(direction)
+		#position += direction * city.get_tile_size() # TODO this needs proper logic in the character class to prevent wall collides
 
 
 func _get_closest_cardinal_vector(vec2: Vector2):

@@ -17,6 +17,9 @@ collision_layer = 2
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_mukjw")
+reaction_speed = null
+sight_range = null
+flee_from_debug = null
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
