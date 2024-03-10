@@ -23,8 +23,6 @@ func _ready():
 	$SightArea/CollisionShape2D.shape.radius = sight_range
 	
 	$StateMachine.push_state("porter")
-	
-	TurnMaster.connect("turn_body", Callable(self, "process_turn")) # TODO this should be called directly not via signals
 
 
 func look() -> Array: # ONLY CALL IN PHYSICS PROCESS
@@ -54,7 +52,7 @@ func set_movement_target(movement_target):
 	navigation_path = navigation_agent.get_current_navigation_path()
 
 
-func process_turn() -> void:
+func process_turn_body() -> void:
 	if has_target_position:
 		var current_agent_position: Vector2 = global_position
 		var next_path_position: Vector2 = navigation_agent.get_next_path_position()
@@ -65,7 +63,6 @@ func process_turn() -> void:
 		rounded_angle = round(rounded_angle / half_pi) * half_pi
 		direction = Vector2.RIGHT.rotated(rounded_angle)
 		move_character(direction)
-		#position += direction * city.get_tile_size() # TODO this needs proper logic in the character class to prevent wall collides
 
 
 func _get_closest_cardinal_vector(vec2: Vector2):

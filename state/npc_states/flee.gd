@@ -1,5 +1,6 @@
 extends NpcBaseState
 
+# TODO WHY only enter flee state one frame after seeing something?
 var average_scary_thing_position:= Vector2.ZERO
 var flee_turns = 20
 
@@ -10,7 +11,7 @@ func _ready():
 
 
 func _physics_process(_delta):
-	if has_physics_this_turn:
+	if has_physics_this_round:
 		return
 	
 	flee_turns -= 1
@@ -32,6 +33,12 @@ func _physics_process(_delta):
 	for i in range(8):
 		dirs.append(float(i)/8 * TAU)
 	
+	var approx_scary_thing_dir: Vector2 = state_owner.global_position.direction_to(average_scary_thing_position)
+	var prox_angle = approx_scary_thing_dir.angle()
+	var quart_pi = PI / 4.0
+	prox_angle = round(prox_angle / quart_pi) * quart_pi
+	dirs.erase(prox_angle)
+	
 	var possible_navs := []
 	var space_state = state_owner.get_world_2d().direct_space_state
 	for dir in dirs:
@@ -49,7 +56,7 @@ func _physics_process(_delta):
 		if dist > champ_dist:
 			champ_dist = dist
 			champ_nav = nav
-	
+	print(champ_nav)
 	state_owner.set_movement_target(champ_nav)
 
 

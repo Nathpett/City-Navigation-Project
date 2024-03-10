@@ -18,7 +18,7 @@ func enter() -> void:
 
 
 func _physics_process(_delta):
-	if has_physics_this_turn:
+	if has_physics_this_round:
 		return
 	super._physics_process(_delta)
 	if things_seen.is_empty():

@@ -1,7 +1,7 @@
 extends Character
 
 var turn_exhausted = false
-
+# TODO QUEUE INPUT AND EXECUTE IN process_turn_body
 
 func _input(event):
 	if turn_exhausted:
@@ -27,5 +27,5 @@ func _input(event):
 			valid_press = true
 		
 		if valid_press:
-			TurnMaster.execute_turn()
+			RoundMaster.execute_round()
 			move_character(direction)

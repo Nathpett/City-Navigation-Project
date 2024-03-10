@@ -4,19 +4,19 @@ extends State
 var things_seen: Array = []
 
 var seen_flee: bool = false
-var has_physics_this_turn: bool = false
+var has_physics_this_round: bool = false
 
 
 func _ready():
 	super._ready()
-	TurnMaster.connect("prime_physics", Callable(self, "set").bind("has_physics_this_turn", false))
-	TurnMaster.connect("cleanup_turn", Callable(self, "_on_cleanup_turn"))
+	RoundMaster.connect("prime_physics", Callable(self, "set").bind("has_physics_this_round", false))
+	RoundMaster.connect("cleanup_turn", Callable(self, "_on_cleanup_turn"))
 
 
 func _physics_process(_delta):
-	if has_physics_this_turn:
+	if has_physics_this_round:
 		return
-	call_deferred("set", "has_physics_this_turn", true)
+	call_deferred("set", "has_physics_this_round", true)
 	
 	things_seen = state_owner.look()
 	

@@ -5,9 +5,19 @@ var movement_speed: float = 100.0
 var holding = null
 var city: City
 
+@export var execute_priority: int = 0
+
 
 func _ready():
+	super._ready()
+	
 	city = get_parent()
+	
+	RoundMaster.register_character(self)
+
+
+func process_turn_body() -> void:
+	pass
 
 
 func move_character(direction: Vector2i) -> void:

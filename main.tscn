@@ -268,7 +268,6 @@ position = Vector2(200, 56)
 
 [node name="Thing6" parent="." instance=ExtResource("5_ibd3p")]
 position = Vector2(312, 56)
-flee_from_debug = true
 
 [node name="Thing2" parent="." instance=ExtResource("5_ibd3p")]
 position = Vector2(536, 344)
@@ -284,3 +283,4 @@ position = Vector2(104, 56)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("7_ob8hq")]
 position = Vector2(424, 56)
+flee_from_debug = true

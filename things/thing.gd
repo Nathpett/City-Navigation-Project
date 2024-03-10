@@ -5,6 +5,11 @@ signal dropped
 
 @export var flee_from_debug = false
 
+
+func _ready():
+	pass
+
+
 func evoke_pickup():
 	$StateMachine.push_state("held",  null, true)
 

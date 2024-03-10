@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b0x3p1mj2mui0"]
+[gd_scene load_steps=7 format=3 uid="uid://b0x3p1mj2mui0"]
 
 [ext_resource type="Script" path="res://things/player.gd" id="1_08x34"]
 [ext_resource type="Script" path="res://state/state_machine.gd" id="2_dhwaf"]
@@ -11,6 +11,9 @@ size = Vector2(10, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f74tm"]
 resource_local_to_scene = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pcmt8"]
+radius = 6.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 collision_layer = 2
@@ -36,6 +39,13 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SightArea"]
 shape = SubResource("CircleShape2D_f74tm")
+
+[node name="SeeHitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SeeHitBox"]
+shape = SubResource("CircleShape2D_pcmt8")
 
 [connection signal="area_entered" from="SightArea" to="." method="_on_sight_area_area_entered"]
 [connection signal="area_exited" from="SightArea" to="." method="_on_sight_area_area_exited"]
