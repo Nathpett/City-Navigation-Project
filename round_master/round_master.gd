@@ -1,12 +1,24 @@
 extends Node
 
 signal prime_physics
-signal turn_begin
+signal round_begin
 signal turn_body
-signal turn_end
+signal round_end
+signal round_conclude
 signal cleanup_turn
 
 var character_registry: Array = []
+var is_player_turn: bool = false
+
+
+func _ready():
+	call_deferred("main_loop")
+
+
+func main_loop() -> void:
+	while true:
+		execute_round()
+		await round_conclude
 
 
 func register_character(character: Character) -> void:
@@ -16,14 +28,20 @@ func register_character(character: Character) -> void:
 func execute_round():
 	emit_signal("prime_physics")
 	await get_tree().physics_frame
-	emit_signal("turn_begin")
+	emit_signal("round_begin")
 	
 	var sorted_characters = _get_sorted_characters()
 	for character in sorted_characters:
-		character.process_turn_body()
+		if character.is_player():
+			is_player_turn = true
+			await character.round_done
+			is_player_turn = false
+		else:
+			character.process_turn_body()
 	
-	emit_signal("turn_end")
-	emit_signal("cleanup_turn")
+	emit_signal("round_end")
+	emit_signal("cleanup_turn") # TODO RENAME
+	emit_signal("round_conclude")
 
 
 func _get_sorted_characters() -> Array:

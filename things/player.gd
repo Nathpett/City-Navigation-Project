@@ -4,7 +4,7 @@ var turn_exhausted = false
 # TODO QUEUE INPUT AND EXECUTE IN process_turn_body
 
 func _input(event):
-	if turn_exhausted:
+	if !RoundMaster.is_player_turn:
 		return
 	
 	var just_pressed = event.is_pressed() and !event.is_echo()
@@ -25,7 +25,13 @@ func _input(event):
 		if event.is_action_pressed("left"):
 			direction += Vector2.LEFT
 			valid_press = true
-		
 		if valid_press:
 			RoundMaster.execute_round()
 			move_character(direction)
+			turns_left -= 1
+			if turns_left == 0:
+				emit_signal("round_done")
+
+
+func is_player() -> bool:
+	return true

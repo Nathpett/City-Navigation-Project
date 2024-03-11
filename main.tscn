@@ -282,5 +282,7 @@ position = Vector2(168, 168)
 position = Vector2(104, 56)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("7_ob8hq")]
-position = Vector2(424, 56)
+position = Vector2(264, 56)
+execute_priority = null
+turns_per_round = null
 flee_from_debug = true

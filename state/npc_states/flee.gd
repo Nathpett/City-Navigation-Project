@@ -1,6 +1,5 @@
 extends NpcBaseState
 
-# TODO WHY only enter flee state one frame after seeing something?
 var average_scary_thing_position:= Vector2.ZERO
 var flee_turns = 20
 

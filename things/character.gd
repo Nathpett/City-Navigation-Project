@@ -1,19 +1,27 @@
 class_name Character
 extends Thing
 
+signal round_done
+
 var movement_speed: float = 100.0
 var holding = null
 var city: City
 
-@export var execute_priority: int = 0
+var turns_left
 
+@export var execute_priority: int = 0
+@export var turns_per_round: int = 1
 
 func _ready():
 	super._ready()
 	
+	turns_left = turns_per_round
+	
 	city = get_parent()
 	
 	RoundMaster.register_character(self)
+	RoundMaster.connect("round_begin", Callable(self, "_on_round_end"))
+	RoundMaster.connect("round_end", Callable(self, "_on_round_end"))
 
 
 func process_turn_body() -> void:
@@ -44,3 +52,15 @@ func drop() -> void:
 	get_parent().add_child(holding)
 	
 	holding = null
+
+
+func is_player() -> bool:
+	return false
+
+
+func _on_round_begin() -> void:
+	turns_left = turns_per_round
+
+
+func _on_round_end() -> void:
+	pass

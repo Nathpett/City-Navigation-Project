@@ -20,6 +20,9 @@ collision_layer = 2
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_08x34")
+execute_priority = null
+turns_per_round = null
+flee_from_debug = null
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
