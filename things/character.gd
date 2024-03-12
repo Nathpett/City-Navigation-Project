@@ -32,7 +32,7 @@ func move_character(direction: Vector2i) -> void:
 	var possible_tile = city.get_map_local(global_position) + direction
 	if city.is_collide(possible_tile):
 		return
-	position = city.map_to_global(possible_tile) # TODO use tween?
+	position = city.map_to_global(possible_tile)
 
 
 func pick_up(thing: Thing) -> void:

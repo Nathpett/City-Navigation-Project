@@ -10,7 +10,7 @@ var has_physics_this_round: bool = false
 func _ready():
 	super._ready()
 	RoundMaster.connect("prime_physics", Callable(self, "set").bind("has_physics_this_round", false))
-	RoundMaster.connect("cleanup_turn", Callable(self, "_on_cleanup_turn"))
+	RoundMaster.connect("cleanup_round", Callable(self, "_on_cleanup_round"))
 
 
 func _physics_process(_delta):
@@ -31,5 +31,5 @@ func _physics_process(_delta):
 			state_machine.push_state("flee")
 
 
-func _on_cleanup_turn() -> void:
+func _on_cleanup_round() -> void:
 	pass

@@ -58,6 +58,6 @@ func _physics_process(_delta):
 	state_owner.set_movement_target(champ_nav)
 
 
-func _on_cleanup_turn() -> void:
+func _on_cleanup_round() -> void:
 	if flee_turns == 0:
 		emit_signal("state_concluded")

@@ -1,12 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0x3p1mj2mui0"]
+[gd_scene load_steps=8 format=3 uid="uid://b0x3p1mj2mui0"]
 
 [ext_resource type="Script" path="res://things/player.gd" id="1_08x34"]
 [ext_resource type="Script" path="res://state/state_machine.gd" id="2_dhwaf"]
+[ext_resource type="PackedScene" uid="uid://xkbqb2ggp7xa" path="res://things/hover_sprite/hover_sprite.tscn" id="2_inaxg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rylqn"]
 radius = 3.0
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hxpec"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fxcqd"]
 size = Vector2(10, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f74tm"]
@@ -25,8 +26,8 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rylqn")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("PlaceholderTexture2D_hxpec")
+[node name="HoverSprite" parent="." instance=ExtResource("2_inaxg")]
+texture = SubResource("PlaceholderTexture2D_fxcqd")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 

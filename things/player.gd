@@ -1,7 +1,6 @@
 extends Character
 
 var turn_exhausted = false
-# TODO QUEUE INPUT AND EXECUTE IN process_turn_body
 
 func _input(event):
 	if !RoundMaster.is_player_turn:

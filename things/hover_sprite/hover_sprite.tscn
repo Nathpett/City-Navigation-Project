@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://xkbqb2ggp7xa"]
+
+[ext_resource type="Script" path="res://things/hover_sprite/hover_sprite.gd" id="1_vv5kw"]
+
+[node name="HoverSprite" type="Sprite2D"]
+script = ExtResource("1_vv5kw")

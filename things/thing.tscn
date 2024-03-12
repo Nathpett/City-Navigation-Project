@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccwa6pbmgfq8"]
+[gd_scene load_steps=6 format=3 uid="uid://ccwa6pbmgfq8"]
 
 [ext_resource type="Script" path="res://things/thing.gd" id="1_yt67d"]
 [ext_resource type="Texture2D" uid="uid://dkw051bbanke4" path="res://icon.svg" id="2_g3l83"]
+[ext_resource type="PackedScene" uid="uid://xkbqb2ggp7xa" path="res://things/hover_sprite/hover_sprite.tscn" id="3_dt6o6"]
 [ext_resource type="Script" path="res://state/state_machine.gd" id="3_u8ph6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_17t3k"]
@@ -10,7 +11,7 @@ radius = 6.0
 [node name="Thing" type="CharacterBody2D"]
 script = ExtResource("1_yt67d")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="HoverSprite" parent="." instance=ExtResource("3_dt6o6")]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_g3l83")
 

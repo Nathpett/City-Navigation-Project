@@ -5,7 +5,7 @@ signal round_begin
 signal turn_body
 signal round_end
 signal round_conclude
-signal cleanup_turn
+signal cleanup_round
 
 var character_registry: Array = []
 var is_player_turn: bool = false
@@ -41,7 +41,7 @@ func execute_round():
 			character.process_turn_body()
 	
 	emit_signal("round_end")
-	emit_signal("cleanup_turn") # TODO RENAME
+	emit_signal("cleanup_round")
 	call_deferred("emit_signal", "round_conclude")
 
 
