@@ -26,7 +26,6 @@ func _input(event):
 			direction += Vector2.LEFT
 			valid_press = true
 		if valid_press:
-			RoundMaster.execute_round()
 			move_character(direction)
 			turns_left -= 1
 			if turns_left == 0:

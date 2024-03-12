@@ -55,7 +55,6 @@ func _physics_process(_delta):
 		if dist > champ_dist:
 			champ_dist = dist
 			champ_nav = nav
-	print(champ_nav)
 	state_owner.set_movement_target(champ_nav)
 
 

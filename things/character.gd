@@ -20,7 +20,7 @@ func _ready():
 	city = get_parent()
 	
 	RoundMaster.register_character(self)
-	RoundMaster.connect("round_begin", Callable(self, "_on_round_end"))
+	RoundMaster.connect("round_begin", Callable(self, "_on_round_begin"))
 	RoundMaster.connect("round_end", Callable(self, "_on_round_end"))
 
 

@@ -21,6 +21,7 @@ func main_loop() -> void:
 		await round_conclude
 
 
+
 func register_character(character: Character) -> void:
 	character_registry.append(character)
 
@@ -41,7 +42,7 @@ func execute_round():
 	
 	emit_signal("round_end")
 	emit_signal("cleanup_turn") # TODO RENAME
-	emit_signal("round_conclude")
+	call_deferred("emit_signal", "round_conclude")
 
 
 func _get_sorted_characters() -> Array:
